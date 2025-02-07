@@ -1,4 +1,4 @@
-# $k$-means Codebooks for WavLM
+# $k$-means codebooks for WavLM
 
 A quick way to access the pretrained [WavLM Large](https://github.com/microsoft/unilm/tree/master/wavlm) model and a few pretrained $k$-means codebooks on some of the layers.
 
