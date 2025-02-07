@@ -1,10 +1,12 @@
-# K-means Codebooks for WavLM
+# $k$-means Codebooks for WavLM
 
-A quick way to access the pretrained [WavLM Large](https://github.com/microsoft/unilm/tree/master/wavlm) model and a few pretrained $K$-means codebooks on some of the layers.
+A quick way to access the pretrained [WavLM Large](https://github.com/microsoft/unilm/tree/master/wavlm) model and a few pretrained $k$-means codebooks on some of the layers.
 
 ## Requirements
 
-See `pyproject.toml`.
+Python 3.10+ and PyTorch 2+ are required.
+
+For training, see the `dev` requirements in `pyproject.toml`.
 
 ## Usage
 
@@ -29,7 +31,7 @@ codebook = torch.hub.load(
     "nicolvisser/wavlm-codebooks",
     "codebook",
     layer=11,
-    k=500,
+    k=500, # <- change k here
     progress=True,
     trust_repo=True,
 ).cuda()
@@ -45,12 +47,22 @@ with torch.inference_mode():
     )  # [1, T, D]
     features = features.squeeze(0)  # [T, D]
 
-    distances = torch.cdist(features.cuda(), codebook, p=2)  # [T, K]
+    distances = torch.cdist(features, codebook, p=2)  # [T, K]
     units = torch.argmin(distances, dim=1)  # [T,]
 
 print(units)
 
 ```
+
+## Pretrained codebooks available
+
+| Layer | k    |
+| ----- | ---- |
+| 11    | 100  |
+| 11    | 200  |
+| 11    | 500  |
+| 11    | 1000 |
+| 11    | 2000 |
 
 ## More Information
 
