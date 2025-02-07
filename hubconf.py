@@ -27,6 +27,8 @@ def wavlm_large(map_location="cpu", progress=True) -> WavLM:
     model.load_state_dict(checkpoint["model"])
     model.to(map_location)
     model.eval()
+    num_params = sum(p.numel() for p in model.parameters())
+    print(f"WavLM model loaded with {num_params} parameters.")
     return model
 
 
@@ -42,4 +44,6 @@ def codebook(layer: int, k: int, map_location="cpu", progress=True) -> torch.Ten
         check_hash=True,
         weights_only=True,
     )
-    return state_dict["codebook"]
+    codebook = state_dict["codebook"]
+    print(f"WavLM codebook loaded with shape: {codebook.shape}")
+    return codebook
