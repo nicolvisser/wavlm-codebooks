@@ -28,7 +28,7 @@ def wavlm_large(map_location="cpu", progress=True) -> WavLM:
     model.to(map_location)
     model.eval()
     num_params = sum(p.numel() for p in model.parameters())
-    print(f"WavLM model loaded with {num_params} parameters.")
+    print(f"WavLM Large loaded with {num_params:,} parameters.")
     return model
 
 
